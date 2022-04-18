@@ -22,6 +22,8 @@ namespace MovieMVC
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
+            services.AddTransient<SeedService>();
+
             services.AddRazorPages();
             services.AddControllersWithViews();
         }

@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MovieMVC.Data
+﻿namespace MovieMVC.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -12,5 +6,7 @@ namespace MovieMVC.Data
             : base(options)
         {
         }
+
+        public DbSet<Collection> Collection { get; set; }
     }
 }
