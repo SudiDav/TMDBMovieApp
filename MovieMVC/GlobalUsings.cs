@@ -12,3 +12,4 @@ global using MovieMVC.Models.Settings;
 global using MovieMVC.Services;
 global using Microsoft.Extensions.Options;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using MovieMVC.Services.Interfaces;

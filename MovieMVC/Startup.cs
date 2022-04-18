@@ -17,12 +17,13 @@ namespace MovieMVC
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             services.AddTransient<SeedService>();
+            services.AddScoped<IRemoteMovieService, TMDBMovieService>();
 
             services.AddRazorPages();
             services.AddControllersWithViews();
