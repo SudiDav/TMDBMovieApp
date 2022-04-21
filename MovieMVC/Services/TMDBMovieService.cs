@@ -72,7 +72,7 @@ namespace MovieMVC.Services
             return movieDetail;
         }
 
-        public async Task<MovieSearch> SearchMovieAsync(MovieCategory category, int count)
+        public async Task<MovieSearch> SearchMoviesAsync(MovieCategory category, int count)
         {
             MovieSearch movieSearch = new();
 
