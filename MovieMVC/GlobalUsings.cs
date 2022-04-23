@@ -17,3 +17,4 @@ global using Microsoft.AspNetCore.Mvc;
 global using MovieMVC.Models;
 global using System.Diagnostics;
 global using MovieMVC.Models.ViewModels;
+global using Microsoft.AspNetCore.Mvc.Rendering;
