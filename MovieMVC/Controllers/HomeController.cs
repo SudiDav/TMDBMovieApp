@@ -31,7 +31,7 @@
                 UpComing = await _tmdbMovieService.SearchMoviesAsync(MovieCategory.upcoming, count)
             };
             
-            return View();
+            return View(data);
         }
 
         public IActionResult Privacy()
