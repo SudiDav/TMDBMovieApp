@@ -16,7 +16,7 @@
         {
             // Get all collections except the default collections one
             var defaultCollectionName = _appSettings.MovieMVCSettings.DefaultCollection.Name;
-            var collections = await _context.Collection.Where(c => c.Name != defaultCollectionName).ToListAsync();
+            var collections = await _context.Collections.Where(c => c.Name != defaultCollectionName).ToListAsync();
 
             return View(collections);
         }
@@ -39,7 +39,7 @@
                 return NotFound();
             }
 
-            var collection = await _context.Collection.FindAsync(id);
+            var collection = await _context.Collections.FindAsync(id);
             if (collection == null)
             {
                 return NotFound();
@@ -92,7 +92,7 @@
                 return NotFound();
             }
 
-            var collection = await _context.Collection
+            var collection = await _context.Collections
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (collection == null)
             {
@@ -112,15 +112,15 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var collection = await _context.Collection.FindAsync(id);
-            _context.Collection.Remove(collection);
+            var collection = await _context.Collections.FindAsync(id);
+            _context.Collections.Remove(collection);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "MovieCollections");
         }
 
         private bool CollectionExists(int id)
         {
-            return _context.Collection.Any(e => e.Id == id);
+            return _context.Collections.Any(e => e.Id == id);
         }
 
     }

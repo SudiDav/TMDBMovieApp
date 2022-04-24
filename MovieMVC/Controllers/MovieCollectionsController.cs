@@ -12,13 +12,13 @@ namespace MovieMVC.Controllers
         }
         public async Task<IActionResult> Index(int? id)
         {
-            id ??= (await _context.Collection.FirstOrDefaultAsync(c => c.Name.ToUpper() == "ALL")).Id;
+            id ??= (await _context.Collections.FirstOrDefaultAsync(c => c.Name.ToUpper() == "ALL")).Id;
 
-            ViewData["CollectionId"] = new SelectList(_context.Collection, "Id", "Name", id);
+            ViewData["CollectionId"] = new SelectList(_context.Collections, "Id", "Name", id);
 
-            var allMovieIds = await _context.Movie.Select(m => m.Id).ToListAsync();
+            var allMovieIds = await _context.Movies.Select(m => m.Id).ToListAsync();
 
-            var movieIdsInCollection = await _context.MovieCollection
+            var movieIdsInCollection = await _context.MovieCollections
                                         .Where(m => m.CollectionId == id)
                                         .OrderBy(m => m.Order)
                                         .Select(m => m.MovieId)
@@ -26,11 +26,11 @@ namespace MovieMVC.Controllers
             var movieIdsNotInCollection = allMovieIds.Except(movieIdsInCollection);
 
             var moviesInCollection = new List<Movie>();
-            movieIdsInCollection.ForEach(movieId => moviesInCollection.Add(_context.Movie.Find(movieId)));
+            movieIdsInCollection.ForEach(movieId => moviesInCollection.Add(_context.Movies.Find(movieId)));
 
             ViewData["IdsInCollection"] = new MultiSelectList(moviesInCollection, "Id", "Title");
 
-            var moviesNotInCollection = await _context.Movie.AsNoTracking().Where(m => movieIdsNotInCollection.Contains(m.Id)).ToListAsync();
+            var moviesNotInCollection = await _context.Movies.AsNoTracking().Where(m => movieIdsNotInCollection.Contains(m.Id)).ToListAsync();
             ViewData["IdsNotInCollection"] = new MultiSelectList(moviesNotInCollection, "Id", "Title");
 
             return View();
@@ -41,8 +41,8 @@ namespace MovieMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(int id, List<int> idsInCollection)
         {
-            var oldRecords = _context.MovieCollection.Where(c => c.CollectionId == id);
-            _context.MovieCollection.RemoveRange(oldRecords);
+            var oldRecords = _context.MovieCollections.Where(c => c.CollectionId == id);
+            _context.MovieCollections.RemoveRange(oldRecords);
             await _context.SaveChangesAsync();
 
             if (idsInCollection is not null)

@@ -25,16 +25,16 @@ namespace MovieMVC.Controllers
 
         public async Task<IActionResult> Import()
         {
-            var movies = await _context.Movie.ToListAsync();
+            var movies = await _context.Movies.ToListAsync();
             return View(movies);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Import(int id)
         {
-            if (_context.Movie.Any(m => m.MovieId == id))
+            if (_context.Movies.Any(m => m.MovieId == id))
             {
-                var localMovie = await _context.Movie.FirstOrDefaultAsync(m => m.MovieId == id);
+                var localMovie = await _context.Movies.FirstOrDefaultAsync(m => m.MovieId == id);
                 return RedirectToAction("Details", "Movies", new { id = localMovie.Id, local = true });
             }
 
@@ -53,7 +53,7 @@ namespace MovieMVC.Controllers
 
         public async Task<IActionResult> Library()
         {
-            var movies = await _context.Movie.ToListAsync();
+            var movies = await _context.Movies.ToListAsync();
             return View(movies);
         }
 
@@ -68,7 +68,7 @@ namespace MovieMVC.Controllers
             if (local)
             {
                 //Get the Movie data straight from the DB
-                movie = await _context.Movie.Include(m => m.Cast)
+                movie = await _context.Movies.Include(m => m.Cast)
                                             .Include(m => m.Crew)
                                             .FirstOrDefaultAsync(m => m.Id == id);
             }
@@ -90,7 +90,7 @@ namespace MovieMVC.Controllers
 
         public IActionResult Create()
         {
-            ViewData["CollectionId"] = new SelectList(_context.Collection, "Id", "Name");
+            ViewData["CollectionId"] = new SelectList(_context.Collections, "Id", "Name");
             return View();
         }
 
@@ -125,7 +125,7 @@ namespace MovieMVC.Controllers
                 return NotFound();
             }
 
-            var movie = await _context.Movie.FindAsync(id);
+            var movie = await _context.Movies.FindAsync(id);
             if (movie == null)
             {
                 return NotFound();
@@ -186,7 +186,7 @@ namespace MovieMVC.Controllers
                 return NotFound();
             }
 
-            var movie = await _context.Movie
+            var movie = await _context.Movies
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (movie is null)
             {
@@ -202,20 +202,20 @@ namespace MovieMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var movie = await _context.Movie.FindAsync(id);
-            _context.Movie.Remove(movie);
+            var movie = await _context.Movies.FindAsync(id);
+            _context.Movies.Remove(movie);
             await _context.SaveChangesAsync();
             return RedirectToAction("Library", "Movies");
         }
 
         private bool MovieExists(int id)
         {
-            return _context.Movie.Any(e => e.Id == id);
+            return _context.Movies.Any(e => e.Id == id);
         }       
 
         private async Task AddToMovieCollection(int id, string collectionName)
         {
-            var collection = await _context.Collection.FirstOrDefaultAsync(c => c.Name == collectionName);
+            var collection = await _context.Collections.FirstOrDefaultAsync(c => c.Name == collectionName);
 
             _context.Add(new MovieCollection()
             {
