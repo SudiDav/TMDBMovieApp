@@ -2,7 +2,7 @@
 @model LandingPageVM
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Movie App";
 }
 
 <style>
@@ -25,23 +25,146 @@
     }
 </style>
 
-<div class="row">
-    @foreach (var movie in Model.UpComing.results)
-    {
-        <div class="col-sm-3 mb-2">
-            <div class="card" style="width: 18rem;">
-                <img src="@movie.poster_path" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title clampOverview">@movie.title</h5>
-                    <p class="card-text clampTitle">@movie.overview</p>
-                    <a asp-action="Details" 
-                       asp-controller="Movies" 
-                       asp-route-id="@movie.id"
-                       class="btn btn-lg btn-block btn-success font-weight-bold">
-                       Details
-                   </a>
-                </div>
+<section class="px-4">
+    <div class="row">
+        <span class="btn btn-lg btn-block btn-success font-weight-bolder border-dark">UPCOMING</span>
+    </div>
+    <div class="row">
+        <div class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                @{
+                    var classText = "active";
+                    for (var slide = 0; slide <= 3; slide++)
+                    {
+                        <div class="carousel-item @classText">
+                            <div class="row">
+                                @foreach (var movie in Model.UpComing.results.Skip(slide * 4).Take(4))
+                                {
+                                    <div class="col-sm-3 mb-2">
+                                        <div class="card" style="width: 18rem;">
+                                            <img src="@movie.poster_path" class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <h5 class="card-title clampTitle">@movie.title</h5>
+                                                <p class="card-text clampOverview">@movie.overview</p>
+                                                <a asp-action="Details" asp-controller="Movies" asp-route-id="@movie.id" class="btn btn-lg btn-block btn-success font-weight-bold">Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        classText = "";
+                    }
+                }
             </div>
         </div>
-    }
-</div>
+    </div>
+</section>
+
+<section class="px-4">
+    <div class="row">
+        <span class="btn btn-lg btn-block btn-success font-weight-bolder border-dark">NOW PLAYING</span>
+    </div>
+    <div class="row">
+        <div class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                @{
+                    classText = "active";
+                    for (var slide = 0; slide <= 3; slide++)
+                    {
+                        <div class="carousel-item @classText">
+                            <div class="row">
+                                @foreach (var movie in Model.NowPlaying.results.Skip(slide * 4).Take(4))
+                                {
+                                    <div class="col-sm-3 mb-2">
+                                        <div class="card" style="width: 18rem;">
+                                            <img src="@movie.poster_path" class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <h5 class="card-title clampTitle">@movie.title</h5>
+                                                <p class="card-text clampOverview">@movie.overview</p>
+                                                <a asp-action="Details" asp-controller="Movies" asp-route-id="@movie.id" class="btn btn-lg btn-block btn-success font-weight-bold">Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        classText = "";
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="px-4">
+    <div class="row">
+        <span class="btn btn-lg btn-block btn-success font-weight-bolder border-dark">POPULAR</span>
+    </div>
+    <div class="row">
+        <div class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                @{
+                    classText = "active";
+                    for (var slide = 0; slide <= 3; slide++)
+                    {
+                        <div class="carousel-item @classText">
+                            <div class="row">
+                                @foreach (var movie in Model.Popular.results.Skip(slide * 4).Take(4))
+                                {
+                                    <div class="col-sm-3 mb-2">
+                                        <div class="card" style="width: 18rem;">
+                                            <img src="@movie.poster_path" class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <h5 class="card-title clampTitle">@movie.title</h5>
+                                                <p class="card-text clampOverview">@movie.overview</p>
+                                                <a asp-action="Details" asp-controller="Movies" asp-route-id="@movie.id" class="btn btn-lg btn-block btn-success font-weight-bold">Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        classText = "";
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="px-4">
+    <div class="row">
+        <span class="btn btn-lg btn-block btn-success font-weight-bolder border-dark">TOP RATED</span>
+    </div>
+    <div class="row">
+        <div class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                @{
+                    classText = "active";
+                    for (var slide = 0; slide <= 3; slide++)
+                    {
+                        <div class="carousel-item @classText">
+                            <div class="row">
+                                @foreach (var movie in Model.TopRated.results.Skip(slide * 4).Take(4))
+                                {
+                                    <div class="col-sm-3 mb-2">
+                                        <div class="card" style="width: 18rem;">
+                                            <img src="@movie.poster_path" class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <h5 class="card-title clampTitle">@movie.title</h5>
+                                                <p class="card-text clampOverview">@movie.overview</p>
+                                                <a asp-action="Details" asp-controller="Movies" asp-route-id="@movie.id" class="btn btn-lg btn-block btn-success font-weight-bold">Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        classText = "";
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>

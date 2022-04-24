@@ -20,7 +20,7 @@
                 actor.place_of_birth = "No place of birth available";
 
             if (string.IsNullOrEmpty(actor.birthday))
-                actor.place_of_birth = "No place of birth available";
+                actor.birthday = "No birth available";
             
             else
                 actor.birthday = DateTime.Parse(actor.birthday).ToString("dd MMM yyyy");
