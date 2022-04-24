@@ -10,15 +10,15 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MovieMVC.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220418153615_Collection")]
-    partial class Collection
+    [Migration("20220424111630_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.12")
+                .HasAnnotation("ProductVersion", "5.0.16")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -230,7 +230,7 @@ namespace MovieMVC.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Collection");
+                    b.ToTable("Collections");
                 });
 
             modelBuilder.Entity("MovieMVC.Models.Database.Movie", b =>
@@ -281,7 +281,7 @@ namespace MovieMVC.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Movie");
+                    b.ToTable("Movies");
                 });
 
             modelBuilder.Entity("MovieMVC.Models.Database.MovieCast", b =>
@@ -338,7 +338,7 @@ namespace MovieMVC.Data.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("MovieCollection");
+                    b.ToTable("MovieCollections");
                 });
 
             modelBuilder.Entity("MovieMVC.Models.Database.MovieCrew", b =>

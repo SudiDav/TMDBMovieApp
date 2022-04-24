@@ -7,8 +7,9 @@
         {
         }
 
-        public DbSet<Collection> Collection { get; set; }
-        public DbSet<Movie> Movie { get; set; }
+        public DbSet<Collection> Collections { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<MovieCollection> MovieCollections { get; set; }
         
     }
 }

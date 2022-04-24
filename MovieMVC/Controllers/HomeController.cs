@@ -20,7 +20,7 @@
             const int count = 16;
             var data = new LandingPageVM()
             {                
-                CustomCollections = await _context.Collection
+                CustomCollections = await _context.Collections
                                             .Include(c => c.MovieCollections)
                                             .ThenInclude(mc => mc.Movie)
                                             .ToListAsync(),
@@ -31,7 +31,7 @@
                 UpComing = await _tmdbMovieService.SearchMoviesAsync(MovieCategory.upcoming, count)
             };
             
-            return View();
+            return View(data);
         }
 
         public IActionResult Privacy()
